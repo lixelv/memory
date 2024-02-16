@@ -1,5 +1,4 @@
 # https://www.codewars.com/kata/540d0fdd3b6532e5c3000b5b
-
 import re
 
 def factorial(n):
@@ -34,9 +33,11 @@ def list_to_string(terms, variable):
     
 
 def expand(expr):
+    expr = expr.replace(",", ".").replace(" ", "")
+    
     x = re.findall(r'[a-z]', expr)[0]
-    a = int(re.findall(r'\((\-?\d+)[a-z]', expr)[0] if re.findall(r'\((\-?\d+)[a-z]', expr) else (-1 if re.findall(r'\-[a-z]', expr)else 1))
-    b = int(re.findall(r'[a-z]([\-\+]\d+)', expr)[0])
+    a = float(re.findall(r'\((\-?\d+(?:\.\d*)?)[a-z]', expr)[0] if re.findall(r'\((\-?\d+(?:\.\d*)?)[a-z]', expr) else (-1 if re.findall(r'\-[a-z]', expr) else 1))
+    b = float(re.findall(r'[a-z]([\-\+]\d+(?:\.\d*)?)', expr)[0])
     n = int(re.findall(r'\^(\d+)', expr)[0])
     
     result = []
@@ -44,8 +45,9 @@ def expand(expr):
     for k in range(n+1)[::-1]:
         result.append((C(k, n) * (a**(n-k)) * (b**k), n-k))
         
-    result = [(int(coef), exp) for coef, exp in result]
+    result = [((coef if coef % 1 != 0 else int(coef)), exp) for coef, exp in result]
         
     return list_to_string(result, x)
 
-print(expand(input()))
+if __name__ == "__main__":
+    print(expand(input()))

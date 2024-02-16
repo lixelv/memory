@@ -1,12 +1,22 @@
-import re
+# from fastapi import FastAPI
 
-cmd_pattern = r'^[a-zA-Z]+'
-args_pattern = r"('[^']*'|\w+)"
+# app = FastAPI()
 
-line = "mov, a, 'b, v', c"  # Пример строки
+# @app.get("/")
+# def read_text():
+#     return "Hello, World!"
 
-parsed_line = re.findall("('[^']*'|\w+)", line)
-cmd = parsed_line[0]
-args = parsed_line[1:] if len(parsed_line) > 1 else []
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="0.0.0.0")
 
-print(f"Команда: {cmd}, Аргументы: {args}")
+def sum_for_list(lst):
+    a = set()
+    for i in lst: 
+        j = 2
+        while i != 1 and i != -1:
+            if i % j == 0: i //= j; a.add(j)
+            else: j += 1
+    return sorted([[i, sum(filter(lambda x: x % i == 0, lst))] for i in a], key = lambda x: x[0])
+
+print(sum_for_list([123, 456, 997])) # {2, 3, 5, 7}

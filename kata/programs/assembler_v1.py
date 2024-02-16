@@ -11,7 +11,7 @@ def read(arg, registers):
 
 def assembler_interpreter(program):
     
-    program = [i.split(";")[0].strip() for i in program if i.split(";")[0].strip()]
+    program = [i.split(";")[0].strip() for i in program.split('\n') if i.split(";")[0].strip()]
     registers = {
         "__loops__": {program[i].replace(':', ''): i for i in range(len(program)) if (program[i][-1] if program[i] else '') == ':'},
         "__cmp__": None,
@@ -100,8 +100,8 @@ def assembler_interpreter(program):
         
     return -1
 
-
-with open('assembler_v1_input.txt', encoding='utf-8') as f:
-    program = f.read().split('\n')
-    
-print(assembler_interpreter(program))
+if __name__ == "__main__":
+    with open('assembler.txt', encoding='utf-8') as f:
+        program = f.read()
+        
+    print(assembler_interpreter(program))
