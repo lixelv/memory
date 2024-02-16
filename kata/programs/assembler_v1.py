@@ -101,7 +101,13 @@ def assembler_interpreter(program):
     return -1
 
 if __name__ == "__main__":
-    with open('assembler.txt', encoding='utf-8') as f:
-        program = f.read()
+    # with open('assembler.txt', encoding='utf-8') as f:
+    #     program = f.read()
+    program = '''mov a, 10
+                mov b, 5
+                mul b, a
+                
+                msg b
+                end'''
         
     print(assembler_interpreter(program))

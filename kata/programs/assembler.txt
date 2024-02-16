@@ -41,10 +41,9 @@
 ;ret
 
 ; 1-st program
-mov a, 5
-mov b, 10
-mov r, b
+mov a, 10
+mov b, 5
+mul b, a
 
-mod r, a
-msg r
+msg b
 end

@@ -35,6 +35,7 @@ def solve_expression(expr):
                 result[i-1:i+2] = [result[i-1] ** result[i+1]]
                 i -= 2
             i += 2
+        i = 1
         while i < len(result):
             if result[i] in "*/":
                 result[i-1:i+2] = [result[i-1] * result[i+1]] if result[i] == "*" else [result[i-1] / result[i+1]]
