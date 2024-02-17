@@ -15,7 +15,7 @@ func_dict = {
 }
 
 for i in func_dict.keys():
-    func_dict[i] = timeout(2)(func_dict[i])
+    func_dict[i] = timeout(12)(func_dict[i])
 
 bot = Bot(token)
 dp = Dispatcher()
@@ -42,9 +42,9 @@ async def help(message: types.Message):
 
 @dp.message(Command(commands=list(func_dict.keys())))
 async def _run(message: types.Message):
-    cmd = get_command(message.text)
-    args = get_args(message.text)
     try:
+        cmd = get_command(message.text)
+        args = get_args(message.text)
         await message.answer("``` "+format_md(func_dict[cmd](args))+" ```", parse_mode="MarkdownV2")
     except Exception as e:
         await message.answer(f"``` {format_md(e)} ```", parse_mode="MarkdownV2")
