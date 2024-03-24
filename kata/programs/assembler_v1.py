@@ -3,7 +3,7 @@ import re
 
 def read(arg, registers):
     if arg.replace('-', '').isnumeric(): 
-        return int(arg)
+        return eval(arg)
     elif arg[0] == "'" and arg[-1] == "'":
         return arg.replace("'", '')
     else: 
