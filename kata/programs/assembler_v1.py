@@ -2,6 +2,7 @@
 import re
 
 def read(arg, registers):
+    print(arg, registers)
     if arg[0] == "'" and arg[-1] == "'":
         return arg.replace("'", '')
     else: 
@@ -13,6 +14,7 @@ def read(arg, registers):
 def assembler_interpreter(program):
     
     program = [i.split(";")[0].strip() for i in program.split('\n') if i.split(";")[0].strip()]
+    
     registers = {
         "__loops__": {program[i].replace(':', ''): i for i in range(len(program)) if (program[i][-1] if program[i] else '') == ':'},
         "__cmp__": None,
@@ -28,7 +30,7 @@ def assembler_interpreter(program):
             cursor += 1
             continue
         
-        parsed_line = re.findall("('[^']*'|\w+)", line)
+        parsed_line = re.findall("('[^']*'|[^,\s]+)", line)
         cmd = parsed_line[0]
         args = parsed_line[1:] if len(parsed_line) > 1 else []
         
@@ -102,13 +104,7 @@ def assembler_interpreter(program):
     return -1
 
 if __name__ == "__main__":
-    # with open('assembler.txt', encoding='utf-8') as f:
-    #     program = f.read()
-    program = '''mov a, 10
-                mov b, 5
-                mul b, a
-                
-                msg b
-                end'''
+    with open('assembler.txt', encoding='utf-8') as f:
+        program = f.read()
         
     print(assembler_interpreter(program))

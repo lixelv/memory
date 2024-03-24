@@ -27,7 +27,7 @@ class Assembler:
                 self.registers["__cursor__"] += 1
                 continue
             
-            parsed_line = re.findall("('[^']*'|\w+)", line)
+            parsed_line = re.findall("('[^']*'|[^,\s]+)", line)
             cmd = parsed_line[0]
             args = parsed_line[1:] if len(parsed_line) > 1 else []
             
