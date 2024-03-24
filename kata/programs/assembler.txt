@@ -43,7 +43,6 @@
 ; 1-st program
 mov a, 10
 mov b, 5
-mul b, a
-
+mov b, a*b
 msg b
 end

@@ -2,12 +2,13 @@
 import re
 
 def read(arg, registers):
-    if arg.replace('-', '').isnumeric(): 
-        return eval(arg)
-    elif arg[0] == "'" and arg[-1] == "'":
+    if arg[0] == "'" and arg[-1] == "'":
         return arg.replace("'", '')
     else: 
-        return registers[arg]
+        for key in registers:
+            if key in arg:
+                arg = arg.replace(key, str(registers[key]))
+        return eval(arg)
 
 def assembler_interpreter(program):
     

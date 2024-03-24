@@ -38,12 +38,13 @@ class Assembler:
         return -1
         
     def read(self, arg):
-        if arg.replace('-', '').isnumeric(): 
-            return eval(arg)
-        elif arg[0] == "'" and arg[-1] == "'":
+        if arg[0] == "'" and arg[-1] == "'":
             return arg.replace("'", '')
         else: 
-            return self.registers[arg]  
+            for key in self.registers:
+                if key in arg:
+                    arg = arg.replace(key, str(self.registers[key]))
+            return eval(arg)
 
     def mov(self, args): self.registers[args[0]] = self.read(args[1])
     def dec(self, args): self.registers[args[0]] -= 1
