@@ -1,12 +1,19 @@
-from collections import Counter
+from typing import List
 
 
 class Solution:
-    def frequencySort(self, s: str) -> str:
-        d = Counter(s)
-        return "".join(
-            [i * j for i, j in sorted(d.items(), key=lambda x: x[1], reverse=True)]
-        )
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        nums = [i for i in nums if i > 0]
+        nums.sort()
+
+        if len(nums) == 0 or nums[0] != 1:
+            return 1
+
+        for i in range(len(nums) - 1):
+            if nums[i + 1] - nums[i] > 1:
+                return nums[i] + 1
+
+        return nums[-1] + 1
 
 
-print(Solution().frequencySort("loveleetcode"))
+print(Solution().firstMissingPositive([0, 2, 2, 1, 1]))
