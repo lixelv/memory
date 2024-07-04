@@ -1,19 +1,21 @@
-from typing import List
+from presets.list_node import ListNode
+from typing import List, Optional
 
 
 class Solution:
-    def firstMissingPositive(self, nums: List[int]) -> int:
-        nums = [i for i in nums if i > 0]
-        nums.sort()
+    def mergeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        current = head
 
-        if len(nums) == 0 or nums[0] != 1:
-            return 1
+        while current is not None and current.next is not None:
+            if current.next.val == 0:
+                current.next = current.next.next
+                current = current.next
+            else:
+                current.val += current.next.val
+                current.next = current.next.next
 
-        for i in range(len(nums) - 1):
-            if nums[i + 1] - nums[i] > 1:
-                return nums[i] + 1
-
-        return nums[-1] + 1
+        return head
 
 
-print(Solution().firstMissingPositive([0, 2, 2, 1, 1]))
+a = ListNode.from_iter([0, 3, 1, 0, 4, 5, 2, 0])
+print(Solution().mergeNodes(a))

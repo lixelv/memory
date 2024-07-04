@@ -1,7 +1,7 @@
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
-        self._next = next
+        self.next = next
         self.size = None
         self.last = None
 
@@ -28,8 +28,8 @@ class ListNode:
 
         for val in iterator:
             i += 1
-            current._next = cls(val)
-            current = current._next
+            current.next = cls(val)
+            current = current.next
 
         node.size = i
         node.last = current
@@ -41,7 +41,7 @@ class ListNode:
 
         while current is not None:
             yield current.val
-            current = current._next
+            current = current.next
 
     def __len__(self):
         if self.size is None:
@@ -50,7 +50,7 @@ class ListNode:
 
             while current is not None:
                 result += 1
-                current = current._next
+                current = current.next
 
             self.size = result
 
@@ -72,7 +72,7 @@ class ListNode:
                     return current.val
 
                 i += 1
-                current = current._next
+                current = current.next
 
             raise IndexError("Index out of range!")
 
@@ -84,26 +84,27 @@ class ListNode:
             return None
 
         new_list = ListNode(self.val)
-        current_old = self._next
+        current_old = self.next
         current_new = new_list
 
         while current_old is not None:
-            current_new._next = ListNode(current_old.val)
-            current_old = current_old._next
-            current_new = current_new._next
+            current_new.next = ListNode(current_old.val)
+            current_old = current_old.next
+            current_new = current_new.next
 
         return new_list
 
     def append(self, el):
-        self.last._next = self.__class__(el)
-        self.last = self.last._next
+        self.last.next = self.__class__(el)
+        self.last = self.last.next
         self.size += 1
 
 
-a = ListNode.from_iter([1, 2, 3, 4])
-a.last._next = ListNode.from_iter(5, 6, 7)
-a.append(5)
-a.append(6)
-a.append(7)
+if __name__ == "__main__":
+    a = ListNode.from_iter([1, 2, 3, 4])
+    a.last.next = ListNode.from_iter(5, 6, 7)
+    a.append(5)
+    a.append(6)
+    a.append(7)
 
-print(a)
+    print(a)
